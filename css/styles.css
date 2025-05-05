@@ -931,11 +931,12 @@ img {
 
 .pricing-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* Sempre 3 colunas em telas médias/grandes */
     gap: 30px;
     max-width: 1100px;
     margin: 0 auto;
     align-items: start; /* Align cards to the top */
+    justify-content: center;
 }
 
 .pricing-card {
@@ -979,9 +980,9 @@ img {
 }
 
 .pricing-card.featured {
-    transform: scale(1.05);
+    /* Removido o scale para não quebrar o grid */
     box-shadow: var(--shadow-md);
-    border: none;
+    border: 1px solid var(--color-accent);
     background: linear-gradient(135deg, rgba(67, 97, 238, 0.15), rgba(114, 9, 183, 0.15), rgba(247, 37, 133, 0.15));
 }
 
@@ -990,7 +991,8 @@ img {
 }
 
 .pricing-card.featured:hover {
-    transform: scale(1.05) translateY(-5px);
+    /* Removido o scale para não quebrar o grid */
+    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
 
@@ -1208,6 +1210,18 @@ img {
     }
 }
 
+@media (max-width: 992px) {
+    .pricing-cards {
+        grid-template-columns: 1fr;
+    }
+    .pricing-card.featured {
+        transform: scale(1);
+    }
+    .pricing-card.featured:hover {
+        transform: translateY(-5px);
+    }
+}
+
 @media (max-width: 576px) {
     .hero h1 {
         font-size: 2rem;
@@ -1325,4 +1339,11 @@ img {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--color-text);
+}
+
+/* Área de texto mais estreita para páginas de conteúdo */
+.narrow-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 16px;
 }
