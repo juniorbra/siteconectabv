@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta Botvance - Automatize seu n8n com funções inteligentes</title>
+    <meta name="description" content="O Conecta Botvance permite que você pause mensagens, concatene, transcreva áudios, interprete imagens, reative conversas e muito mais – tudo sem precisar programar.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Conecta Botvance - Automatize seu n8n com funções inteligentes">
+    <meta property="og:description" content="O Conecta Botvance permite que você pause mensagens, concatene, transcreva áudios, interprete imagens, reative conversas e muito mais – tudo sem precisar programar.">
+    <meta property="og:image" content="images/logo_conecta_botvance.png">
+    <meta property="og:url" content="https://conecta.botvance.com.br">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo_conecta_botvance_2.png" type="image/png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo_conecta_botvance.png" alt="Conecta Botvance Logo">
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#features">Funcionalidades</a></li>
+                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="#pricing">Planos</a></li>
+                </ul>
+                <a href="https://conecta.botvance.com.br" class="btn btn-primary">Login</a>
+                <button class="menu-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Automatize seu n8n com funções inteligentes, sem complicação</h1>
+                <p>O Conecta Botvance permite que você pause mensagens, concatene, transcreva áudios, interprete imagens, reative conversas e muito mais – tudo sem precisar programar.</p>
+                <a href="https://conecta.botvance.com.br" class="btn btn-cta">Comece grátis agora</a>
+            </div>
+            <div class="hero-image">
+                <div class="hero-illustration">
+                    <div class="illustration-node node-1">
+                        <i data-lucide="message-circle"></i>
+                    </div>
+                    <div class="illustration-node node-2">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <div class="illustration-node node-3">
+                        <i data-lucide="bot"></i>
+                    </div>
+                    <div class="illustration-node node-4">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <div class="illustration-line line-1"></div>
+                    <div class="illustration-line line-2"></div>
+                    <div class="illustration-line line-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Funcionalidades</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon icon-pause">
+                        <i class="fas fa-pause"></i>
+                    </div>
+                    <h3>Pausa Personalizada</h3>
+                    <p>Defina o tempo de espera entre o envio de mensagens pelo bot.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-typing">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3>Indicador de Digitação</h3>
+                    <p>Mostre que o bot está digitando, com controle de tempo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-split">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Divisão de Mensagens</h3>
+                    <p>Mensagens muito grandes? O Conecta divide automaticamente em partes menores.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-concat">
+                        <i class="fas fa-object-group"></i>
+                    </div>
+                    <h3>Concatenação Inteligente</h3>
+                    <p>Agrupe mensagens recebidas em um intervalo de tempo para dar uma resposta única e otimizada.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-reactivate">
+                        <i class="fas fa-reply-all"></i>
+                    </div>
+                    <h3>Reativação de Conversa</h3>
+                    <p>Configure até 5 mensagens para retomar contatos que pararam de responder, dentro de 24h.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-audio">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3>Transcrição de Áudio</h3>
+                    <p>Converta áudios em texto com tecnologia OpenAI.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-image">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Interpretação de Imagem</h3>
+                    <p>Envie uma imagem e obtenha uma descrição automática do conteúdo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon icon-dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Painel Inteligente</h3>
+                    <p>Gerencie todos os conectores e funcionalidades do seu fluxo com um painel simples e intuitivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Como Funciona</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number"><span>1</span></div>
+                    <div class="step-content">
+                        <h3>Crie sua conta</h3>
+                        <p>Acesse <a href="https://conecta.botvance.com.br" target="_blank">conecta.botvance.com.br</a> e crie sua conta grátis.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number"><span>2</span></div>
+                    <div class="step-content">
+                        <h3>Configure a Evolution API</h3>
+                        <p>Copie a URL gerada no Conecta e cole no webhook da sua Evolution API.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number"><span>3</span></div>
+                    <div class="step-content">
+                        <h3>Ative recursos avançados (opcional)</h3>
+                        <p>Cadastre sua chave da OpenAI para ativar transcrição e interpretação de imagens.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number"><span>4</span></div>
+                    <div class="step-content">
+                        <h3>Configure o n8n</h3>
+                        <p>Copie e cole um fluxo de exemplo no seu n8n (fornecido pelo Conecta).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number"><span>5</span></div>
+                    <div class="step-content">
+                        <h3>Ative a integração</h3>
+                        <p>Copie a URL do webhook do n8n e cole no Conecta para ativar.</p>
+                    </div>
+                </div>
+                <div class="step-final">
+                    <p>Pronto! Agora você pode configurar tudo a partir do painel do Conecta.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Planos</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Grátis</h3>
+                        <div class="price">R$0</div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Use até 3 conectores</li>
+                            <li>Pausar o bot ao enviar mensagem</li>
+                            <li>Definir o tempo de pausa</li>
+                            <li>Dividir mensagens grandes em menores</li>
+                            <li>Mostrar indicador de digitação</li>
+                            <li>Controlar o tempo de digitação</li>
+                            <li>Concatenação avançada de mensagens</li>
+                            <li>Definir o tempo de concatenação</li>
+                            <li>Reativação de conversa (até 5 mensagens em 24h)</li>
+                            <li>Transcrição de áudio</li>
+                            <li>Interpretação de imagens</li>
+                        </ul>
+                    </div>
+                    <a href="https://conecta.botvance.com.br" class="btn btn-outline">Criar conta</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Premium Ilimitado</h3>
+                        <div class="price">R$19<span>/mês</span></div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Conectores ilimitados</li>
+                            <li>Acesso total ao painel de controle</li>
+                            <li>Pausar o bot ao enviar mensagem</li>
+                            <li>Definir o tempo de pausa</li>
+                            <li>Dividir mensagens grandes em menores</li>
+                            <li>Mostrar indicador de digitação</li>
+                            <li>Controlar o tempo de digitação</li>
+                            <li>Concatenação avançada de mensagens</li>
+                            <li>Definir o tempo de concatenação</li>
+                            <li>Reativação de conversa (até 5 mensagens em 24h)</li>
+                            <li>Transcrição de áudio</li>
+                            <li>Interpretação de imagens</li>
+                        </ul>
+                    </div>
+                    <a href="https://www.asaas.com/c/dh92oichp2f5766r" class="btn btn-outline">Assinar</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3>Premium Ilimitado + Templates n8n</h3>
+                        <div class="price">R$47<span>/mês</span></div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li>Conectores ilimitados</li>
+                            <li>Acesso total ao painel de controle</li>
+                            <li>Pausar o bot ao enviar mensagem</li>
+                            <li>Definir o tempo de pausa</li>
+                            <li>Dividir mensagens grandes em menores</li>
+                            <li>Mostrar indicador de digitação</li>
+                            <li>Controlar o tempo de digitação</li>
+                            <li>Concatenação avançada de mensagens</li>
+                            <li>Definir o tempo de concatenação</li>
+                            <li>Reativação de conversa (até 5 mensagens em 24h)</li>
+                            <li>Transcrição de áudio</li>
+                            <li>Interpretação de imagens</li>
+                            <li>48 templates incríveis do n8n, direto do canal do Youtube da Botvance (4 por mês)</li>
+                            <li>Documentação completa</li>
+                        </ul>
+                    </div>
+                    <a href="https://www.asaas.com/c/igke3ggpqfuou12d" class="btn btn-primary">Assinar com templates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo_conecta_botvance.png" alt="Conecta Botvance Logo">
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="https://conecta.botvance.com.br/login">Login</a></li>
+                        <li><a href="https://www.youtube.com/@botvance">Canal do YouTube</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="https://wa.me/5521982280802">Suporte por WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Conecta Botvance. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" aria-label="Voltar ao topo">
+    </button>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
