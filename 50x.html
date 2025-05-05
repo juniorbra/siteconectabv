@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro no Servidor - Conecta Botvance</title>
+    <link rel="icon" href="images/logo_conecta_botvance_2.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            margin: 0;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .error-message {
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+        
+        .error-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1 class="error-code">500</h1>
+        <h2 class="error-message">Erro no Servidor</h2>
+        <p class="error-description">Desculpe, ocorreu um erro em nosso servidor. Nossa equipe técnica já foi notificada e está trabalhando para resolver o problema.</p>
+        <a href="/" class="btn btn-primary">Voltar para a página inicial</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    image: hvidigaljr/siteconectabotvance:latest
+    container_name: siteconectabotvance
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - portainer
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.siteconectabotvance.rule=Host(`site.botvance.com.br`)
+        - traefik.http.routers.siteconectabotvance.entrypoints=websecure
+        - traefik.http.routers.siteconectabotvance.tls.certresolver=letsencryptresolver
+        - traefik.http.services.siteconectabotvance.loadbalancer.server.port=80
+        - traefik.http.services.siteconectabotvance.loadbalancer.passHostHeader=true
+        - traefik.http.routers.siteconectabotvance.service=siteconectabotvance
+
+networks:
+  portainer:
+    external: true
+    name: portainer
