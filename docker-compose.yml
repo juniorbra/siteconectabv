@@ -3,10 +3,6 @@ version: '3.8'
 services:
   web:
     image: hvidigaljr/siteconectabotvance:latest
-    container_name: siteconectabotvance
-    build:
-      context: .
-      dockerfile: Dockerfile
     networks:
       - portainer
     deploy:
