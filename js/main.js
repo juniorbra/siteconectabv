@@ -108,17 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Ensure external links work properly (specifically for the CTA button)
-    document.querySelectorAll('.btn-cta').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && !href.startsWith('#')) {
-                // This is an external link, let it navigate normally
-                // No need to call e.preventDefault()
-                window.location.href = href;
-            }
-        });
-    });
+    // (Removido: não adicionar eventos extras para .btn-cta)
     
     // Intersection Observer for animations
     const animatedElements = document.querySelectorAll('.feature-card, .step, .pricing-card, .step-final');
