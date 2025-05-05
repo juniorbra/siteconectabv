@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Smooth scrolling for anchor links
+    // Smooth scrolling for anchor links (only for links that start with # and point to an element on the page)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -104,6 +104,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+            }
+        });
+    });
+    
+    // Ensure external links work properly (specifically for the CTA button)
+    document.querySelectorAll('.btn-cta').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                // This is an external link, let it navigate normally
+                // No need to call e.preventDefault()
+                window.location.href = href;
             }
         });
     });
