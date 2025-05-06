@@ -10,6 +10,48 @@ window.addEventListener('load', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Plan toggle switch
+    const planToggle = document.getElementById('plan-toggle');
+    const planOptions = document.querySelectorAll('.plan-switch-option');
+    
+    if (planToggle) {
+        // Toggle between monthly and annual plans
+        planToggle.addEventListener('change', function() {
+            const isAnnual = this.checked;
+            
+            // Update active class on plan options
+            planOptions.forEach(option => {
+                if ((isAnnual && option.dataset.plan === 'anual') || 
+                    (!isAnnual && option.dataset.plan === 'mensal')) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+            
+            // Toggle visibility of plan elements
+            document.querySelectorAll('.mensal-title, .mensal-price, .mensal-link').forEach(el => {
+                el.style.display = isAnnual ? 'none' : '';
+            });
+            
+            document.querySelectorAll('.anual-title, .anual-price, .anual-link').forEach(el => {
+                el.style.display = isAnnual ? '' : 'none';
+            });
+        });
+        
+        // Click on plan options to toggle the switch
+        planOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const isAnnual = this.dataset.plan === 'anual';
+                planToggle.checked = isAnnual;
+                
+                // Trigger the change event
+                const event = new Event('change');
+                planToggle.dispatchEvent(event);
+            });
+        });
+    }
+    
     // Mobile menu toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const body = document.body;

@@ -183,11 +183,23 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <h2 class="section-title">Planos</h2>
+            <div class="plan-switch-container">
+                <div class="plan-switch">
+                    <span class="plan-switch-option active" data-plan="mensal">Mensal</span>
+                    <label class="switch">
+                        <input type="checkbox" id="plan-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="plan-switch-option" data-plan="anual">Anual</span>
+                </div>
+            </div>
             <div class="pricing-cards">
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Grátis</h3>
-                        <div class="price">R$0</div>
+                        <div>
+                            <span class="price">R$0</span>
+                        </div>
                     </div>
                     <div class="pricing-features">
                         <ul>
@@ -206,10 +218,16 @@
                     </div>
                     <a href="https://conecta.botvance.com.br" class="btn btn-outline">Criar conta</a>
                 </div>
-                <div class="pricing-card">
+                <div class="pricing-card" data-plan-type="premium">
                     <div class="pricing-header">
-                        <h3>Premium Ilimitado</h3>
-                        <div class="price">R$19<span>/mês</span></div>
+                        <h3 class="plan-title">
+                            <span class="mensal-title">Assinatura Mensal Plano Premium Ilimitado</span>
+                            <span class="anual-title" style="display: none;">Assinatura Anual Plano Premium Ilimitado</span>
+                        </h3>
+                        <div>
+                            <span class="mensal-price">R$19<span>/mês</span></span>
+                            <span class="anual-price" style="display: none;">R$12,30<span>/mês</span></span>
+                        </div>
                     </div>
                     <div class="pricing-features">
                         <ul>
@@ -227,15 +245,23 @@
                             <li>Interpretação de imagens</li>
                         </ul>
                     </div>
-                    <a href="https://www.asaas.com/c/dh92oichp2f5766r" class="btn btn-outline">Assinar</a>
+                    <a href="https://www.asaas.com/c/boxuivpm3irb91ia" class="btn btn-outline mensal-link">Assinar</a>
+                    <a href="https://www.asaas.com/c/dh92oichp2f5766r" class="btn btn-outline anual-link" style="display: none;">Assinar</a>
                 </div>
-                <div class="pricing-card featured">
+                <div class="pricing-card featured" data-plan-type="premium-templates">
                     <div class="pricing-header">
-                        <h3>Premium Ilimitado + Templates n8n</h3>
-                        <div class="price">R$87<span>/mês</span></div>
+                        <h3 class="plan-title">
+                            <span class="mensal-title">Assinatura Mensal Plano Premium Ilimitado + Templates n8n</span>
+                            <span class="anual-title" style="display: none;">Assinatura Anual Plano Premium Ilimitado + Templates n8n</span>
+                        </h3>
+                        <div>
+                            <span class="mensal-price">R$127<span>/mês</span></span>
+                            <span class="anual-price" style="display: none;">R$79<span>/mês</span></span>
+                        </div>
                     </div>
                     <div class="pricing-features">
                         <ul>
+                            <li>Templates incríveis do n8n, direto do canal do Youtube da Botvance (4 por mês)</li>
                             <li>Conectores ilimitados</li>
                             <li>Acesso total ao painel de controle</li>
                             <li>Pausar o bot ao enviar mensagem</li>
@@ -248,11 +274,11 @@
                             <li>Reativação de conversa (até 5 mensagens em 24h)</li>
                             <li>Transcrição de áudio</li>
                             <li>Interpretação de imagens</li>
-                            <li>48 templates incríveis do n8n, direto do canal do Youtube da Botvance (4 por mês)</li>
                             <li>Documentação completa</li>
                         </ul>
                     </div>
-                    <a href="https://www.asaas.com/c/igke3ggpqfuou12d" class="btn btn-primary">Assinar com templates</a>
+                    <a href="https://www.asaas.com/c/4jre13yc4m17s2ub" class="btn btn-primary mensal-link">Assinar com templates</a>
+                    <a href="https://www.asaas.com/c/igke3ggpqfuou12d" class="btn btn-primary anual-link" style="display: none;">Assinar com templates</a>
                 </div>
             </div>
         </div>

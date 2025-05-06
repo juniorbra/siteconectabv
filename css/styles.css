@@ -929,6 +929,91 @@ img {
     background-color: var(--color-dark);
 }
 
+/* Plan Switch */
+.plan-switch-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.plan-switch {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-card-bg);
+    border-radius: 30px;
+    padding: 5px 15px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-gray-light);
+}
+
+.plan-switch-option {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: 600;
+    color: var(--color-gray);
+    transition: var(--transition);
+}
+
+.plan-switch-option.active {
+    color: var(--color-text);
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.2), rgba(114, 9, 183, 0.2));
+}
+
+/* Switch Toggle */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin: 0 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-gray-light);
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: linear-gradient(135deg, #4361ee, #7209b7);
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--color-gray-light);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background: linear-gradient(135deg, #7209b7, #f72585);
+}
+
+.slider.round {
+    border-radius: 24px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
 .pricing-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Sempre 3 colunas em telas médias/grandes */
@@ -1009,7 +1094,7 @@ img {
     color: var(--color-text);
 }
 
-.price {
+.price, .mensal-price, .anual-price {
     font-size: 2.5rem;
     font-weight: 700;
     background: var(--gradient-primary);
@@ -1019,10 +1104,10 @@ img {
     display: inline-block;
 }
 
-.price span {
-    font-size: 1rem;
+.price span, .mensal-price span, .anual-price span {
+    font-size: 0.8rem;
     font-weight: 400;
-    color: var(--color-gray);
+    color: rgba(160, 169, 184, 0.7); /* Lighter version of var(--color-gray) */
 }
 
 .pricing-features {
