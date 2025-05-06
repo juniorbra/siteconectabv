@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates n8n - Conecta Botvance</title>
+    <meta name="description" content="Templates prontos para turbinar seu n8n. Workflows completos com tudo que você precisa para começar em poucos cliques.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Templates n8n - Conecta Botvance">
+    <meta property="og:description" content="Templates prontos para turbinar seu n8n. Workflows completos com tudo que você precisa para começar em poucos cliques.">
+    <meta property="og:image" content="images/logo_conecta_botvance.png">
+    <meta property="og:url" content="https://conecta.botvance.com.br/templatesn8n">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo_conecta_botvance_2.png" type="image/png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos específicos para a página de templates */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .template-card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--color-gray-light);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .template-thumbnail {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 16/9;
+        }
+        
+        .template-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .template-thumbnail:hover img {
+            transform: scale(1.05);
+        }
+        
+        .template-thumbnail::after {
+            content: '\f144';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 400;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .template-thumbnail:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .template-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .template-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        
+        .template-actions {
+            margin-top: auto;
+            padding: 0 20px 20px;
+        }
+        
+        .btn-buy-template {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-buy-template.disabled {
+            background: #e0e0e0 !important;
+            color: #7e7e7e !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+            opacity: 0.6 !important;
+            border: 1px solid #cccccc !important;
+            text-shadow: none !important;
+        }
+        
+        .btn-buy-template:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            color: white;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 2rem;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        
+        .lightbox iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Template features section - Redesigned */
+        .template-features-container {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(114, 9, 183, 0.1), rgba(247, 37, 133, 0.1));
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(114, 9, 183, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-features-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            z-index: 1;
+        }
+        
+        .template-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            background-color: rgba(26, 34, 53, 0.7);
+            border-radius: var(--border-radius-md);
+            padding: 25px;
+            transition: var(--transition);
+            border: 1px solid var(--color-gray-light);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            background-color: rgba(26, 34, 53, 0.9);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            min-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-icon i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(114, 9, 183, 0.4));
+        }
+        
+        .feature-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        
+        .feature-content p {
+            color: var(--color-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .template-features-cta {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(26, 34, 53, 0.7);
+            border-radius: var(--border-radius-md);
+            margin-top: 20px;
+            border: 1px solid var(--color-gray-light);
+        }
+        
+        .template-features-cta h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .template-features-cta p {
+            font-size: 1.2rem;
+            color: var(--color-text);
+        }
+        
+        /* Hero section adjustments */
+        .hero-templates {
+            padding: 150px 0 80px;
+        }
+        
+        .hero-templates .hero-content {
+            max-width: 800px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .template-features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-item {
+                padding: 20px;
+            }
+            
+            .template-features-container {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
+                margin-right: 15px;
+            }
+            
+            .feature-content h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo_conecta_botvance.png" alt="Conecta Botvance Logo">
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#features">Funcionalidades</a></li>
+                    <li><a href="index.html#how-it-works">Configuração</a></li>
+                    <li><a href="index.html#pricing">Planos</a></li>
+                    <li><a href="templatesn8n.html">Templates n8n</a></li>
+                </ul>
+                <a href="https://conecta.botvance.com.br/login/" class="btn btn-primary">Login</a>
+                <button class="menu-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero hero-templates">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Templates prontos para turbinar seu n8n</h1>
+                <p>Workflows completos com tudo que você precisa para começar em poucos cliques</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Template Features Section - Redesigned -->
+    <section class="template-features-section">
+        <div class="container">
+            <div class="template-features-container">
+                <div class="template-features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Arquivo .json pronto</h3>
+                            <p>Importe diretamente no n8n e comece a usar em segundos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Fluxos organizados</h3>
+                            <p>Workflows comentados e estruturados para fácil compreensão</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Vídeo explicativo</h3>
+                            <p>Tutorial passo a passo para implementação sem complicações</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Documentação</h3>
+                            <p>Material detalhado para esclarecer todas as suas dúvidas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Suporte direto</h3>
+                            <p>Assistência pelo WhatsApp para resolver qualquer problema</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fa fa-link"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Conecta Botvance</h3>
+                            <p>Acesso ilimitado ao Conecta Botvance para turbinar os seus fluxos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="template-features-cta">
+                    <h2>Automatize com velocidade e confiança</h2>
+                    <p>Explore agora e economize horas de trabalho!</p>
+                </div>
+
+                <!-- Seção de Assinatura de Templates -->
+                <section class="subscription-section" style="margin-top:40px; background: linear-gradient(135deg, rgba(26, 34, 53, 0.9), rgba(26, 34, 53, 0.7)); border-radius: 18px; box-shadow: 0 2px 12px rgba(67,97,238,0.2); padding: 40px 24px; text-align: center; max-width: 700px; margin-left:auto; margin-right:auto; border: 1px solid rgba(114, 9, 183, 0.3);">
+                    <img src="images/templates_por_assinatura.jpg" alt="Templates por Assinatura" style="max-width: 520px; width: 100%; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                    <h2 style="font-size: 2rem; margin-bottom: 18px; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;">Assine e receba templates exclusivos todo mês</h2>
+                    <p style="font-size: 1.15rem; color: var(--color-text); max-width: 600px; margin: 0 auto 32px;">
+                        Assine e receba todo mês templates exclusivos de n8n direto no seu e-mail, com até 80% de desconto. Variedade de soluções para diferentes necessidades, suporte incluso e total comodidade. Economize tempo, dinheiro e ganhe eficiência com automações prontas para usar. Transforme seu fluxo com praticidade e qualidade.
+                    </p>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 24px;">
+                        <button id="toggle-mensal" class="toggle-btn active" style="padding: 10px 28px; border-radius: 24px; border: 2px solid rgba(114, 9, 183, 0.7); background: var(--gradient-primary); color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.2s;">Mensal</button>
+                        <button id="toggle-anual" class="toggle-btn" style="padding: 10px 28px; border-radius: 24px; border: 2px solid rgba(114, 9, 183, 0.7); background: rgba(26, 34, 53, 0.5); color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.2s;">Anual</button>
+                    </div>
+                    <div id="assinatura-mensal" style="display: block;">
+                        <a href="https://www.asaas.com/c/4jre13yc4m17s2ub" class="btn-buy-template" style="max-width: 340px; margin: 0 auto; font-size: 1.15rem;">Assinar mensal por R$ 127/mês</a>
+                    </div>
+                    <div id="assinatura-anual" style="display: none;">
+                        <a href="https://www.asaas.com/c/igke3ggpqfuou12d" class="btn-buy-template" style="max-width: 340px; margin: 0 auto; font-size: 1.15rem;">Assinar anual por R$ 87/mês</a>
+                    </div>
+                    <script>
+                        const btnMensal = document.getElementById('toggle-mensal');
+                        const btnAnual = document.getElementById('toggle-anual');
+                        const mensal = document.getElementById('assinatura-mensal');
+                        const anual = document.getElementById('assinatura-anual');
+                        btnMensal.onclick = function() {
+                            btnMensal.classList.add('active');
+                            btnAnual.classList.remove('active');
+                            mensal.style.display = 'block';
+                            anual.style.display = 'none';
+                            btnMensal.style.background = '#4339e6';
+                            btnMensal.style.color = '#fff';
+                            btnAnual.style.background = '#fff';
+                            btnAnual.style.color = '#4339e6';
+                        };
+                        btnAnual.onclick = function() {
+                            btnAnual.classList.add('active');
+                            btnMensal.classList.remove('active');
+                            mensal.style.display = 'none';
+                            anual.style.display = 'block';
+                            btnAnual.style.background = '#4339e6';
+                            btnAnual.style.color = '#fff';
+                            btnMensal.style.background = '#fff';
+                            btnMensal.style.color = '#4339e6';
+                        };
+                    </script>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Grid Section -->
+    <section class="templates">
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 18px; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;">Templates individuais</h2>
+            <div class="templates-grid">
+                <!-- Template 1 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="xCnE34m_sAc">
+                        <img src="https://img.youtube.com/vi/xCnE34m_sAc/maxresdefault.jpg" alt="🔎 IA Monitor de Erros no n8n: Detecta, Notifica e Resolve">
+                    </div>
+                    <div class="template-info">
+                        <h3>🔎 IA Monitor de Erros no n8n: Detecta, Notifica e Resolve</h3>
+                        <p>Detecte e resolva erros no n8n automaticamente com IA. Template com notificações via WhatsApp e Slack, consulta no Supabase, raspagem com Apify e registro no Google Sheets. Inclui vídeo, documentação e suporte via WhatsApp. Baixe agora e evite paradas nos seus fluxos sem precisar programar.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/kw56e9347qx54csa" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 2 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="QX2Bp94bzps">
+                        <img src="https://img.youtube.com/vi/QX2Bp94bzps/maxresdefault.jpg" alt="📅 MCP que AGENDA, Envia EMAILS e Organiza TAREFAS! Um ASSISTENTE PESSOAL Completo">
+                    </div>
+                    <div class="template-info">
+                        <h3>📅 MCP que AGENDA, Envia EMAILS e Organiza TAREFAS! Um ASSISTENTE PESSOAL Completo</h3>
+                        <p>Automatize tarefas com IA direto no WhatsApp usando MCP. Crie agendas com link do Google Meet, gerencie e-mails, tarefas e contatos com comandos por texto ou áudio. Template completo com vídeo, documentação e suporte. Aumente sua produtividade com integração real entre WhatsApp e ferramentas Google.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/m3r0q86svc26xyjq" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 3 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="tidT5kBKurE">
+                        <img src="https://img.youtube.com/vi/tidT5kBKurE/maxresdefault.jpg" alt="🤖 MCP no n8n: Crie MULTIAGENTES com ATENDIMENTO Inteligente e AGENDAMENTO no Google Calendar">
+                    </div>
+                    <div class="template-info">
+                        <h3>🤖 MCP no n8n: Crie MULTIAGENTES com ATENDIMENTO Inteligente e AGENDAMENTO no Google Calendar</h3>
+                        <p>Aprenda a usar o MCP no n8n para automatizar o atendimento de imobiliárias com fluxos separados para compra, locação e dúvidas. Inclui agendamento automático com Google Calendar. Template completo com vídeo, suporte e comunidade. Ideal para quem quer aplicar IA em vendas, marketing e atendimento com eficiência.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/icwbefszynk0pxi8" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+<!-- Template 4 -->
+<div class="template-card">
+    <div class="template-thumbnail" data-video-id="eQGJ1Dr_Hcs">
+        <img src="https://img.youtube.com/vi/eQGJ1Dr_Hcs/maxresdefault.jpg" alt="Aprenda a PAUSAR o Agente de IA no n8n com REDIS e POSTGRES">
+    </div>
+    <div class="template-info">
+        <h3>Aprenda a PAUSAR o Agente de IA no n8n com REDIS e POSTGRES</h3>
+        <p>Aprenda a dominar pausas inteligentes no n8n com IA. Use Postgres para pausas por tempo e Redis para pausas com expiração automática. Evite que a IA interrompa o atendimento humano. Live prática com exemplos, estratégias e boas práticas. Entre no grupo para receber materiais exclusivos e avisos das próximas lives.</p>
+    </div>
+    <div class="template-actions">
+        <span class="btn-buy-template disabled">Link de compra em breve</span>
+    </div>
+</div>
+                
+<!-- Template 5 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="yN3J-PNpuC8">
+                        <img src="https://img.youtube.com/vi/yN3J-PNpuC8/maxresdefault.jpg" alt="PARE de PERDER Mensagens (e DINHEIRO): aprenda RabbitMQ de forma SIMPLES">
+                    </div>
+                    <div class="template-info">
+                        <h3>PARE de PERDER Mensagens (e DINHEIRO): aprenda RabbitMQ de forma SIMPLES</h3>
+                        <p>Descubra como o RabbitMQ protege suas automações e evita perdas de dados e vendas. Aprenda sobre mensageria assíncrona, integração com n8n e gateways de pagamento. Aula prática, stack completa e grupo exclusivo com materiais. Ideal para quem quer segurança e estabilidade nas integrações. Assista e proteja seu faturamento.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+                
+                <!-- Template 6 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="ItiabTDASTY">
+                        <img src="https://img.youtube.com/vi/ItiabTDASTY/maxresdefault.jpg" alt="Crie seu AGENTE SDR e NUNCA MAIS Fale com Lead Frio (ele até cria grupo no Zap)!">
+                    </div>
+                    <div class="template-info">
+                        <h3>Crie seu AGENTE SDR e NUNCA MAIS Fale com Lead Frio (ele até cria grupo no Zap)!</h3>
+                        <p>Aprenda a criar um agente de IA que qualifica leads, agenda reuniões no Google Calendar e cria grupos personalizados no WhatsApp com nome e imagem do lead. Ideal para quem quer automatizar vendas e atendimento com eficiência. Template pronto, aula prática e suporte no grupo exclusivo. Assista agora!</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/63at72049p2015ue" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 7 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="y-xV2Ze0esM">
+                        <img src="https://img.youtube.com/vi/y-xV2Ze0esM/maxresdefault.jpg" alt="MCP no n8n: Conheça a 3ª Onda dos Agentes de IA 🤖">
+                    </div>
+                    <div class="template-info">
+                        <h3>MCP no n8n: Conheça a 3ª Onda dos Agentes de IA 🤖</h3>
+                        <p>Descubra como o Model Context Protocol (MCP) está revolucionando os agentes de IA no n8n. Aprenda a instalar Community Nodes, criar fluxos mais simples e comparar abordagens antigas com a nova arquitetura MCP. Vídeo essencial para quem quer evoluir na automação com IA. Entre na comunidade e comece agora.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+                
+                <!-- Template 8 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="CZ_YXzYsuio">
+                        <img src="https://img.youtube.com/vi/CZ_YXzYsuio/maxresdefault.jpg" alt="Agente de IA PLANEJA SUA VIAGEM Completa em Minutos! (Vôos, Hotéis e Passeios)">
+                    </div>
+                    <div class="template-info">
+                        <h3>Agente de IA PLANEJA SUA VIAGEM Completa em Minutos! (Vôos, Hotéis e Passeios)</h3>
+                        <p>Veja como criar um agente de viagens com IA que busca voos, hotéis e atrações automaticamente. Usando Tavily, SerpAPI e Eleven Labs, a IA monta seu roteiro em minutos. Template pronto, aula prática e suporte na comunidade. Ideal para automatizar planejamentos de viagem com inteligência e agilidade.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/xcoh12va8zldjkpm" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 9 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="DtO6XaFKMsc">
+                        <img src="https://img.youtube.com/vi/DtO6XaFKMsc/maxresdefault.jpg" alt="Esse Assistente com IA Usa MULTIAGENTES e o GOOGLE para FALAR, AGENDAR e TRABALHAR por Você!">
+                    </div>
+                    <div class="template-info">
+                        <h3>Esse Assistente com IA Usa MULTIAGENTES e o GOOGLE para FALAR, AGENDAR e TRABALHAR por Você!</h3>
+                        <p>Controle sua IA por comandos de voz via WhatsApp! Crie tarefas, agende eventos e envie e-mails só falando. Aprenda a transcrever áudios com IA gratuita, converter textos em voz com Eleven Labs e enviar tudo no WhatsApp. Template completo com suporte. Ideal para automatizar sua rotina com voz e IA.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/7tzul6j7ih7v0sy5" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 10 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="fUr_ArlQpEs">
+                        <img src="https://img.youtube.com/vi/fUr_ArlQpEs/maxresdefault.jpg" alt="Agenda, E-mails e Lembretes: Deixe a IA Cuidar de Tudo pra Você!">
+                    </div>
+                    <div class="template-info">
+                        <h3>Agenda, E-mails e Lembretes: Deixe a IA Cuidar de Tudo pra Você!</h3>
+                        <p>Organize sua agenda, e-mails e lembretes com uma IA no WhatsApp. Agende compromissos, visualize e-mails e receba alertas usando texto ou áudio. Template completo para o n8n, ideal para quem quer mais produtividade com automação inteligente. Adquira agora e transforme sua rotina com uma secretária virtual por IA.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+                
+                <!-- Template 11 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="A_aJexoncGE">
+                        <img src="https://img.youtube.com/vi/A_aJexoncGE/maxresdefault.jpg" alt="Sua SECRETÁRIA DIGITAL Inteligente: Gerencie E-MAILS com ÁUDIO no WHATSAPP!">
+                    </div>
+                    <div class="template-info">
+                        <h3>Sua SECRETÁRIA DIGITAL Inteligente: Gerencie E-MAILS com ÁUDIO no WHATSAPP!</h3>
+                        <p>Aprenda a criar sua secretária digital com IA e gerencie e-mails direto pelo WhatsApp. Use comandos de voz, automatize respostas, envios e etiquetas com n8n, Groq e multi-tools. Template pronto com suporte. Ideal para quem quer praticidade e automação na rotina. Assista agora e transforme sua caixa de entrada.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/7tzul6j7ih7v0sy5" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 12 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="mPQ3aIbrK_E">
+                        <img src="https://img.youtube.com/vi/mPQ3aIbrK_E/maxresdefault.jpg" alt="Como Usar MULTIAGENTES no N8N para Criar CONTEÚDO de ALTA QUALIDADE para Newsletters, Blogs e Mais!">
+                    </div>
+                    <div class="template-info">
+                        <h3>Como Usar MULTIAGENTES no N8N para Criar CONTEÚDO de ALTA QUALIDADE para Newsletters, Blogs e Mais!</h3>
+                        <p>Aprenda a usar multiagentes no n8n para gerar conteúdos otimizados com SEO, fontes confiáveis e links contextuais. Crie artigos, blogs e newsletters automaticamente com qualidade e credibilidade. Template pronto com suporte. Ideal para quem quer automatizar a produção de conteúdo e aumentar a eficiência. Assista agora e transforme sua escrita.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/7tzul6j7ih7v0sy5" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 13 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="xHLxM04Cv-g">
+                        <img src="https://img.youtube.com/vi/xHLxM04Cv-g/maxresdefault.jpg" alt="BLOGS: Como Criar um Widget de Cadastro no WhatsApp e Automatizar o Envio de Novidades Diárias">
+                    </div>
+                    <div class="template-info">
+                        <h3>BLOGS: Como Criar um Widget de Cadastro no WhatsApp e Automatizar o Envio de Novidades Diárias</h3>
+                        <p>Aprenda a criar um widget de cadastro para WhatsApp e automatize o envio de posts diários com Bolt.new, n8n e Evolution API. Mantenha sua audiência engajada e amplie o alcance do seu marketing. Solução prática, poderosa e fácil de implementar. Assista agora e transforme sua comunicação digital.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+                
+                <!-- Template 14 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="IhiHnPzHadE">
+                        <img src="https://img.youtube.com/vi/IhiHnPzHadE/maxresdefault.jpg" alt="REDIS no N8N: Buffer de Mensagens, Pausa de Atendimento, Temporizador e Outras Aplicações!">
+                    </div>
+                    <div class="template-info">
+                        <h3>REDIS no N8N: Buffer de Mensagens, Pausa de Atendimento, Temporizador e Outras Aplicações!</h3>
+                        <p>Descubra como usar Redis com n8n para otimizar fluxos com buffer de mensagens, pausas de atendimento, timers e variáveis dinâmicas. Aprenda aplicações práticas além do cache tradicional. Template completo, exemplos reais e suporte na comunidade. Assista agora e leve suas automações a um novo nível de eficiência.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+                
+                <!-- Template 15 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="C6Vpq9eRkTg">
+                        <img src="https://img.youtube.com/vi/C6Vpq9eRkTg/maxresdefault.jpg" alt="Como Fazer AGENDAMENTOS no N8N com as TOOLS do GOOGLE CALENDAR: Passo a Passo Completo">
+                    </div>
+                    <div class="template-info">
+                        <h3>Como Fazer AGENDAMENTOS no N8N com as TOOLS do GOOGLE CALENDAR: Passo a Passo Completo</h3>
+                        <p>Aprenda a integrar o Google Calendar com o n8n e crie um fluxo simples de agendamentos. Veja como agendar, reagendar, cancelar e verificar disponibilidade automaticamente. Tutorial passo a passo com GCP, credenciais e workflows prontos. Ideal para quem quer automatizar compromissos com eficiência. Assista agora e comece a usar!</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/n2y11xcmqqnfbh82" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 16 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="l-J7qPs5g5Q">
+                        <img src="https://img.youtube.com/vi/l-J7qPs5g5Q/maxresdefault.jpg" alt="LEMBRETES PERSONALIZADO com N8N: Reengaje Usuários Inativos de Forma Automática usando IA">
+                    </div>
+                    <div class="template-info">
+                        <h3>LEMBRETES PERSONALIZADO com N8N: Reengaje Usuários Inativos de Forma Automática usando IA</h3>
+                        <p>Aprenda a reengajar usuários inativos com lembretes automáticos usando n8n, Hotmart, Supabase e Google Sheets. Identifique quem não interage há dias e envie mensagens personalizadas para recuperar o engajamento. Tutorial completo, ideal para quem quer otimizar resultados com automação inteligente. Assista agora e transforme sua comunicação com IA.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+                
+                <!-- Template 17 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="nuIA9mS6jkw">
+                        <img src="https://img.youtube.com/vi/nuIA9mS6jkw/maxresdefault.jpg" alt="MULTIAGENTES de IA no N8N: Utilize várias IAs especializadas e monte uma empresa completa! (parte 2)">
+                    </div>
+                    <div class="template-info">
+                        <h3>MULTIAGENTES de IA no N8N: Utilize várias IAs especializadas e monte uma empresa completa! (parte 2)</h3>
+                        <p>Aprenda a usar multiagentes de IA no n8n com estratégias linear e ramificada. Crie agentes especializados que atuam em sequência ou com classificação inteligente de texto. Ideal para atendimento, suporte e automação de processos. Template pronto com suporte. Assista agora e leve sua empresa a outro nível com IA.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/7tzul6j7ih7v0sy5" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 18 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="rzlOwUFLq00">
+                        <img src="https://img.youtube.com/vi/rzlOwUFLq00/maxresdefault.jpg" alt="MULTIAGENTES de IA no N8N: Utilize várias IAs especializadas e monte uma empresa completa! (parte 1)">
+                    </div>
+                    <div class="template-info">
+                        <h3>MULTIAGENTES de IA no N8N: Utilize várias IAs especializadas e monte uma empresa completa! (parte 1)</h3>
+                        <p>Descubra como usar multiagentes de IA no n8n para integrar setores da sua empresa com automações inteligentes. Aprenda a configurar agents com tools e um agente difusor para coordenação. Ideal para atendimento, processos e suporte. Template pronto com suporte. Assista agora e eleve sua automação a outro nível.</p>
+                    </div>
+                    <div class="template-actions">
+                        <a href="https://www.asaas.com/c/7tzul6j7ih7v0sy5" class="btn-buy-template">Comprar template</a>
+                    </div>
+                </div>
+                
+                <!-- Template 19 -->
+                <div class="template-card">
+                    <div class="template-thumbnail" data-video-id="SUHpyL4ePGw">
+                        <img src="https://img.youtube.com/vi/SUHpyL4ePGw/maxresdefault.jpg" alt="Orion + VPS + Dify - Aprenda Como Instalar (Docker Portainer Traefik) - FÁCIL e RÁPIDO!">
+                    </div>
+                    <div class="template-info">
+                        <h3>Orion + VPS + Dify - Aprenda Como Instalar (Docker Portainer Traefik) - FÁCIL e RÁPIDO!</h3>
+                        <p>Aprenda a instalar o Orion em um VPS usando Dify de forma simples e eficiente. Veja o passo a passo com Portainer e Traefik para garantir uma infraestrutura robusta e funcional. Ideal para quem quer dominar a gestão de servidores modernos. Assista agora e otimize sua automação com confiança.</p>
+                    </div>
+                    <div class="template-actions">
+                        <span class="btn-buy-template disabled">Link de compra em breve</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close">&times;</button>
+            <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo_conecta_botvance.png" alt="Conecta Botvance Logo">
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="https://conecta.botvance.com.br/login">Login</a></li>
+                        <li><a href="https://www.youtube.com/@botvance">Canal do YouTube</a></li>
+                        <li><a href="https://site.botvance.com.br/termos.html">Termos de Uso</a></li>
+                        <li><a href="https://site.botvance.com.br/privacidade.html">Política de Privacidade</a></li>
+                        <li><a href="https://wa.me/5521986425768">Suporte por WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Conecta Botvance. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
